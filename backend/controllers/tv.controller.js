@@ -49,3 +49,33 @@ export const getTvShowDetails = async (req, res) => {
     });
   }
 };
+
+export const getSimilarTvShows = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const data = await fetchFromTMDB(
+      `https://api.themoviedb.org/3/tv/${id}/similar`
+    );
+    res.status(200).json({ success: true, similar: data.results });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server Error in get Similar TV Shows controller.",
+    });
+  }
+};
+
+export const getTvShowsByCategory = async (req, res) => {
+  const { category } = req.params;
+  try {
+    const data = await fetchFromTMDB(
+      `https://api.themoviedb.org/3/tv/${category}`
+    );
+    res.status(200).json({ success: true, content: data.results });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server Error in get TV Shows by category controller.",
+    });
+  }
+};
