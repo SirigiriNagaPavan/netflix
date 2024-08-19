@@ -58,3 +58,6 @@ Before you begin, ensure you have the following installed:
    git clone https://github.com/Diivvuu/mern-netflix-clone.git
    cd netflix-clone
    ```
+
+   for frontend
+   axios lucide-react react-player react-hot-toast react-router-dom zustand
