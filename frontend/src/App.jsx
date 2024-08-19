@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { Loader } from 'lucide-react';
 import { Toaster } from 'react-hot-toast';
 import LoginPage from './pages/home/LoginPage';
+import SignUpPage from './pages/SignUpPage';
 function App() {
   const { user, isCheckingAuth, authCheck } = useAuthStore();
 
@@ -31,7 +32,10 @@ function App() {
           path="/login"
           element={!user ? <LoginPage /> : <Navigate to="/" />}
         />
-        {/* <Route path = '/' element = {</>}/>*/}
+        <Route
+          path="/signup"
+          element={!user ? <SignUpPage /> : <Navigate to="/" />}
+        />
         {/* <Route path = '/' element = {</>}/>*/}
         {/* <Route path = '/' element = {</>}/>*/}
       </Routes>

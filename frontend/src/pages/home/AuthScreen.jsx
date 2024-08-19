@@ -6,8 +6,8 @@ const AuthScreen = () => {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
   const handleSubmit = (e) => {
-    e.preventdefault();
-    navigate('/signup?email=' + email);
+    e.preventDefault();
+    navigate('/signup');
   };
   return (
     <div className="hero-bg relative">
