@@ -1,10 +1,9 @@
+import tailwindScrollbarHide from 'tailwind-scrollbar-hide';
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    './src/**/*.{js,jsx,ts,tsx,html}', // Adjust the paths according to your project structure
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {},
   },
-  plugins: [],
-}
+  plugins: [tailwindScrollbarHide],
+};
