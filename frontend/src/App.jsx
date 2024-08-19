@@ -1,10 +1,11 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import HomePage from './pages/home/HomePage';
 import { useAuthStore } from './store/authUser';
 import { useEffect } from 'react';
 import { Loader } from 'lucide-react';
 import { Toaster } from 'react-hot-toast';
+import LoginPage from './pages/home/LoginPage';
 function App() {
   const { user, isCheckingAuth, authCheck } = useAuthStore();
 
@@ -26,7 +27,10 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        {/* <Route path = '/' element = {</>}/>*/}
+        <Route
+          path="/login"
+          element={!user ? <LoginPage /> : <Navigate to="/" />}
+        />
         {/* <Route path = '/' element = {</>}/>*/}
         {/* <Route path = '/' element = {</>}/>*/}
         {/* <Route path = '/' element = {</>}/>*/}
