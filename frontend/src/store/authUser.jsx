@@ -43,9 +43,11 @@ export const useAuthStore = create((set) => ({
     set({ isCheckingAuth: true });
     try {
       const response = await axios.get('/api/v1/auth/authCheck');
+
       set({ user: response.data.user, isCheckingAuth: false });
     } catch (error) {
       set({ isCheckingAuth: false, user: null });
+      // toast.error(error.response.data.message || "An error occurred");
     }
   },
 }));

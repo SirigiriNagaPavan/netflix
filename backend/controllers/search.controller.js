@@ -1,5 +1,5 @@
-import { User } from "../models/user.model.js";
-import { fetchFromTMDB } from "../services/tdmb.service.js";
+import { User } from '../models/user.model.js';
+import { fetchFromTMDB } from '../services/tdmb.service.js';
 
 export const searchPerson = async (req, res) => {
   const { query } = req.params;
@@ -19,17 +19,17 @@ export const searchPerson = async (req, res) => {
           id: response.results[0].id,
           image: response.results[0].profile_path,
           title: response.results[0].name,
-          searchType: "person",
+          searchType: 'person',
           createdAt: new Date(),
         },
       },
     });
     res.status(200).json({ success: true, content: response.results });
   } catch (error) {
-    console.log("Error in searchPerson controller : ", error.message);
+    console.log('Error in searchPerson controller : ', error.message);
     res.status(500).json({
       success: false,
-      message: "Internal server Error in search Person controller.",
+      message: 'Internal server Error in search Person controller.',
     });
   }
 };
@@ -48,17 +48,17 @@ export const searchMovie = async (req, res) => {
           id: response.results[0].id,
           image: response.results[0].poster_path,
           title: response.results[0].title,
-          searchType: "movie",
+          searchType: 'movie',
           createdAt: new Date(),
         },
       },
     });
     res.status(200).json({ success: true, content: response.results });
   } catch (error) {
-    console.log("Error in searchMovie controller : ", error.message);
+    console.log('Error in searchMovie controller : ', error.message);
     res.status(500).json({
       success: false,
-      message: "Internal server Error in search Movie controller.",
+      message: 'Internal server Error in search Movie controller.',
     });
   }
 };
@@ -77,17 +77,17 @@ export const searchTV = async (req, res) => {
           id: response.results[0].id,
           image: response.results[0].poster_path,
           title: response.results[0].title,
-          searchType: "tv",
+          searchType: 'tv',
           createdAt: new Date(),
         },
       },
     });
     res.status(200).json({ success: true, content: response.results });
   } catch (error) {
-    console.log("Error in searchTv controller : ", error.message);
+    console.log('Error in searchTv controller : ', error.message);
     res.status(500).json({
       success: false,
-      message: "Internal server Error in search TV controller.",
+      message: 'Internal server Error in search TV controller.',
     });
   }
 };
@@ -97,7 +97,7 @@ export const getSearchHistory = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Internal server Error in get search History controller.",
+      message: 'Internal server Error in get search History controller.',
     });
   }
 };
@@ -112,12 +112,12 @@ export const removeItemFromHistory = async (req, res) => {
     });
     res
       .status(200)
-      .json({ success: true, message: "Item removed from search history" });
+      .json({ success: true, message: 'Item removed from search history' });
   } catch (error) {
-    console.log("Error in removeItemFromHistory controller", error.message);
+    console.log('Error in removeItemFromHistory controller', error.message);
     res.status(500).json({
       success: false,
-      message: "Internal server Error in removeItemFromHistory controller.",
+      message: 'Internal server Error in removeItemFromHistory controller.',
     });
   }
 };

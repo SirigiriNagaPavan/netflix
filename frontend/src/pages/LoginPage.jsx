@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuthStore } from '../../store/authUser';
+import { useAuthStore } from '../store/authUser';
 import { Link } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react'; // Import eye icons
 
@@ -76,7 +76,7 @@ const LoginPage = () => {
             </button>
           </form>
           <div className="text-center text-gray-400">
-            Don't have an account?
+            Don't have an account?{' '}
             <Link to="/signup" className="text-red-500 hover:underline">
               Sign up
             </Link>

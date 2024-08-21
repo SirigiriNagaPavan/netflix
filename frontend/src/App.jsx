@@ -5,7 +5,7 @@ import { useAuthStore } from './store/authUser';
 import { useEffect } from 'react';
 import { Loader } from 'lucide-react';
 import { Toaster } from 'react-hot-toast';
-import LoginPage from './pages/home/LoginPage';
+import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 function App() {
   const { user, isCheckingAuth, authCheck } = useAuthStore();
