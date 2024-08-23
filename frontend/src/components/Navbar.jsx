@@ -12,17 +12,17 @@ const Navbar = () => {
   const { setContentType } = useContentStore();
   return (
     <div>
-      <header className="max-w-6xl mx-auto flex flex-wrap items-center justify-between p-4 h-20">
+      <header className="w-full mx-auto flex flex-wrap items-center justify-between p-3 px-16 h-20">
         <div className="flex items-center gap-10 z-50">
           <Link to="/">
             <img
               src="/netflix-logo.png"
               alt="NETFLIX LOGO"
-              className="w-32 sm:w-40"
+              className="w-32 sm:w-24"
             />
           </Link>
           {/* desktop navbar items */}
-          <div className="hidden sm:flex gap-2 items-center">
+          <div className="hidden sm:flex gap-6 items-center">
             <Link
               to="/"
               className="hover:text-white/60 transition-colors duration-500"
@@ -45,7 +45,7 @@ const Navbar = () => {
             </Link>
           </div>
         </div>
-        <div className="flex gap-2 items-center z-50">
+        <div className="flex gap-5 items-center z-50">
           <Link to="/search">
             <Search className="size-6 cursor-pointer" />
           </Link>
