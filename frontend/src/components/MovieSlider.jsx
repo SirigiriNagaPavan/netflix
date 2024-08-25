@@ -3,6 +3,7 @@ import { useContentStore } from '../store/content';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { SMALL_IMG_BASE_URL } from '../utils/constants';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const MovieSlider = ({ category }) => {
   const { contentType } = useContentStore();
@@ -24,14 +25,29 @@ const MovieSlider = ({ category }) => {
     };
     getContent();
   }, [contentType, category]);
-
+  const scrollLeft = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({
+        left: -sliderRef.current.offsetWidth,
+        behavior: 'smooth',
+      });
+    }
+  };
+  const scrollRight = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({
+        left: sliderRef.current.offsetWidth,
+        behavior: 'smooth',
+      });
+    }
+  };
   return (
     <div
-      className="bg-[#141414] text-white  px-5 md:px-20"
+      className="bg-[#141414] text-white relative  px-5 md:px-20"
       onMouseEnter={() => setShowArrows(true)}
       onMouseLeave={() => setShowArrows(false)}
     >
-      <h2 className="mb-2 text-2xl font-semibold">
+      <h2 className="mb-1 text-2xl font-semibold">
         {formattedCategoryName} {formattedContentType}
       </h2>
       <div
@@ -51,9 +67,27 @@ const MovieSlider = ({ category }) => {
                 className="transition-transform duration-300 ease-in-out group-hover:scale-125"
               />
             </div>
+            <p className="mt-1 text-center">{item.title || item.name}</p>
           </Link>
         ))}
       </div>
+      {showArrows && (
+        <>
+          <button
+            className="absolute top-1/2 -translate-y-1/2 left-5 md:left-24 flex items-center justify-center size-12 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 text-white z-10"
+            onClick={scrollLeft}
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button
+            className="absolute top-1/2 -translate-y-1/2 right-5 md:right-24 flex items-center justify-center
+            size-12 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 text-white z-10"
+            onClick={scrollRight}
+          >
+            <ChevronRight size={24} />
+          </button>
+        </>
+      )}
     </div>
   );
 };
