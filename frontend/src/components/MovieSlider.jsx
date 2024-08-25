@@ -57,7 +57,7 @@ const MovieSlider = ({ category }) => {
         {content.map((item) => (
           <Link
             to={`/watch/${item.id}`}
-            className="min-w-[300px] relative hover:scale-125 transition-all ease-in-out duration-300 hvoer:z-10 top-0 left-0"
+            className="min-w-[280px] relative hover:scale-125 transition-all ease-in-out duration-300 hvoer:z-10 top-0 left-0"
             key={item.id}
           >
             <div className="rounded overflow-hidden">

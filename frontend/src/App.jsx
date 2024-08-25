@@ -7,6 +7,7 @@ import { Toaster } from 'react-hot-toast';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import SearchPage from './pages/SearchPage';
+import WatchPage from './pages/WatchPage';
 function App() {
   const { user, isCheckingAuth, authCheck } = useAuthStore();
 
@@ -38,9 +39,12 @@ function App() {
         />
         <Route
           path="/search"
-          element={user ? <SearchPage /> : <Navigate to="/" />}
+          element={user ? <SearchPage /> : <Navigate to="/login" />}
         />
-        {/* <Route path = '/' element = {</>}/>*/}
+        <Route
+          path="/watch/:id"
+          element={user ? <WatchPage /> : <Navigate to="/login" />}
+        />
       </Routes>
       {/* <Footer/> */}
       <Toaster />
