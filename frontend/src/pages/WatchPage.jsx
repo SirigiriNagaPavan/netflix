@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ReactPlayer from 'react-player';
 import { formatReleaseDate } from '../utils/dateFunction';
 import { ORIGINAL_IMG_BASE_URL, SMALL_IMG_BASE_URL } from '../utils/constants';
+import WatchPageSkeleton from '../components/skeletons/WatchPageSkeleton';
 
 const WatchPage = () => {
   const { id } = useParams();
@@ -81,8 +82,26 @@ const WatchPage = () => {
       });
   };
 
-  if (loading) return <div className="min-h-screen bg-black p-10">Loading</div>;
-  // if(!content)
+  if (loading)
+    return (
+      <div className="min-h-screen bg-black p-10">
+        <WatchPageSkeleton />
+      </div>
+    );
+  if (!content) {
+    return (
+      <div className="bg-black text-white h-screen">
+        <div className="max-w-6xl mx-auto">
+          <Navbar />
+          <div className="text-center mx-auto px-4 py-8 h-full mt-40">
+            <h2 className="text-2xl sm:text-5xl font-bold text-balance">
+              Content not found 😥
+            </h2>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="bg-black min-h-screen text-white">
       <div className="mx-auto container px-4 gap-y-8 h-full">
@@ -116,7 +135,7 @@ const WatchPage = () => {
             <ReactPlayer
               muted={true}
               playing={true}
-              loop = {true}
+              loop={true}
               controls={true}
               width={'100%'}
               height={'60vh'}

@@ -9,6 +9,8 @@ import SignUpPage from './pages/SignUpPage';
 import SearchPage from './pages/SearchPage';
 import WatchPage from './pages/WatchPage';
 import SearchHistoryPage from './pages/SearchHistoryPage';
+import NotFoundPage from './pages/404';
+import Footer from './components/Footer';
 function App() {
   const { user, isCheckingAuth, authCheck } = useAuthStore();
 
@@ -50,8 +52,9 @@ function App() {
           path="/history"
           element={user ? <SearchHistoryPage /> : <Navigate to="/login" />}
         />
+        <Route path="/*" element={<NotFoundPage />} />
       </Routes>
-      {/* <Footer/> */}
+      <Footer/>
       <Toaster />
     </>
   );
