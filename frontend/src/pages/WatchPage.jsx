@@ -1,12 +1,12 @@
 import { useContentStore } from '../store/content';
 import Navbar from '../components/Navbar';
 import { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ReactPlayer from 'react-player';
 import { formatReleaseDate } from '../utils/dateFunction';
-import { ORIGINAL_IMG_BASE_URL } from '../utils/constants';
+import { ORIGINAL_IMG_BASE_URL, SMALL_IMG_BASE_URL } from '../utils/constants';
 
 const WatchPage = () => {
   const { id } = useParams();
@@ -114,6 +114,9 @@ const WatchPage = () => {
         <div className="aspect-video mb-8 p-1 h-[60vh] w-full sm:px-10 md:px-32">
           {trailers?.length > 0 && (
             <ReactPlayer
+              muted={true}
+              playing={true}
+              loop = {true}
               controls={true}
               width={'100%'}
               height={'60vh'}
@@ -157,7 +160,45 @@ const WatchPage = () => {
         </div>
         {similarContent?.length > 0 && (
           <div className="mt-12">
-            <h3>Similar Movies/Tv Shows</h3>
+            <h3 className="text-3xl font-semibold mb-4">
+              Similar Movies/Tv Shows
+            </h3>
+            <div
+              className="flex overflow-x-scroll scrollbar-hide gap-4 pb-4 group"
+              ref={sliderRef}
+            >
+              {similarContent?.map((content) => {
+                if (content.poster_path === null) return null;
+                return (
+                  <Link
+                    key={content.id}
+                    to={`/watch/${content.id}`}
+                    className="w-52 flex-none"
+                  >
+                    <img
+                      src={SMALL_IMG_BASE_URL + content?.poster_path}
+                      alt="Poster path"
+                      className="w-full h-auto rounded-md"
+                    />
+                    <h4 className="mt-2 text-lg font-semibold">
+                      {content?.title || content?.name}
+                    </h4>
+                  </Link>
+                );
+              })}
+              <ChevronRight
+                className="absolute -translate-y-1/2 right-2 w-8 h-8
+										opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer
+										 bg-red-600 text-white rounded-full"
+                onClick={scrollRight}
+              />
+              <ChevronLeft
+                className="absolute  -translate-y-1/2 left-2 w-8 h-8 opacity-0 
+								group-hover:opacity-100 transition-all duration-300 cursor-pointer bg-red-600 
+								text-white rounded-full"
+                onClick={scrollLeft}
+              />
+            </div>
           </div>
         )}
       </div>
