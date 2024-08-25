@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useContentStore } from '../store/content';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
-import { Search } from 'lucide-react';
+import { Search, Loader } from 'lucide-react';
 import { ORIGINAL_IMG_BASE_URL } from '../utils/constants';
 import { Link } from 'react-router-dom';
 
@@ -11,6 +11,7 @@ const SearchPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState([]);
   const { setContentType } = useContentStore();
+  const [loading, setLoading] = useState(false);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -19,6 +20,7 @@ const SearchPage = () => {
   };
   const handleSearch = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await axios.get(`/api/v1/search/${activeTab}/${searchTerm}`);
       setResults(res.data.content);
@@ -28,6 +30,8 @@ const SearchPage = () => {
       } else {
         toast.error('An error occured, please try again later');
       }
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -75,24 +79,45 @@ const SearchPage = () => {
             <Search className="size-6" />
           </button>
         </form>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {results?.map((result) => {
-            if (!result.poster_path && !result.profile_path) return null;
-            return (
-              <div>
-                {activeTab === 'person' ? (
-                  <div>
-                    <img src={ORIGINAL_IMG_BASE_URL + result.profile_path} />
-                  </div>
-                ) : (
-                  <Link>
-                    <img src={ORIGINAL_IMG_BASE_URL + result.poster_path  } />
-                  </Link>
-                )}
-              </div>
-            );
-          })}
-        </div>
+        {loading ? (
+          <div className="flex justify-center items-center h-64">
+            <Loader className="animate-spin text-red-600" size={48} />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {results?.map((result) => {
+              if (!result.poster_path && !result.profile_path) return null;
+              return (
+                <div className="bg-gray-950rounded" key={result.id}>
+                  {activeTab === 'person' ? (
+                    <div className="flex flex-col items-center group">
+                      <img
+                        src={ORIGINAL_IMG_BASE_URL + result.profile_path}
+                        className=""
+                      />
+                      <h2 className="mt-2 text-xl font-bold text-white opacity-0 group-hover:opacity-100">
+                        {result.name}
+                      </h2>
+                    </div>
+                  ) : (
+                    <Link
+                      to={'/watch/' + result.id}
+                      onClick={() => {
+                        setContentType(activeTab);
+                      }}
+                      className="group"
+                    >
+                      <img src={ORIGINAL_IMG_BASE_URL + result.poster_path} />
+                      <h2 className="mt-2 text-xl font-bold text-white opacity-0 group-hover:opacity-100">
+                        {result.title || result.name}
+                      </h2>
+                    </Link>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

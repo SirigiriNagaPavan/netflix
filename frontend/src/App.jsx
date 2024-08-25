@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import SearchPage from './pages/SearchPage';
 import WatchPage from './pages/WatchPage';
+import SearchHistoryPage from './pages/SearchHistoryPage';
 function App() {
   const { user, isCheckingAuth, authCheck } = useAuthStore();
 
@@ -44,6 +45,10 @@ function App() {
         <Route
           path="/watch/:id"
           element={user ? <WatchPage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/history"
+          element={user ? <SearchHistoryPage /> : <Navigate to="/login" />}
         />
       </Routes>
       {/* <Footer/> */}
