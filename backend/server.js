@@ -1,8 +1,8 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import path from 'path';
-
 import authRoutes from './routes/auth.routes.js';
+
 import movieRoutes from './routes/movie.routes.js';
 import tvRoutes from './routes/tv.routes.js';
 import searchRoutes from './routes/search.routes.js';
