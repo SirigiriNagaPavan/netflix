@@ -1,21 +1,29 @@
 import { fetchFromTMDB } from "../services/tdmb.service.js";
 
+
 export const getTrendingMovies = async (req, res) => {
   try {
-    const data = await fetchFromTMDB(
-      "https://api.themoviedb.org/3/trending/movie/day"
-    );
+    // URL as per the TMDB API
+    const url = "https://api.themoviedb.org/3/trending/movie/day?language=en-US";
+
+    // Fetch data from TMDB
+    const data = await fetchFromTMDB(url);
+
+    // Select a random movie from the results
     const randomMovie =
       data.results[Math.floor(Math.random() * data.results?.length)];
 
+    // Respond with the movie details
     res.json({ success: true, content: randomMovie });
   } catch (error) {
+    console.error("Error in getTrendingMovies:", error.message);
     res.status(500).json({
       success: false,
       message: "Internal server Error in trending movies controller.",
     });
   }
 };
+
 
 export const getMovieTrailers = async (req, res) => {
   const { id } = req.params;
